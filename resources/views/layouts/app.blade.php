@@ -12,6 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -64,38 +66,8 @@
             </div>
         </nav>
        
-        <div class="container">
-            <div class="row">
-                @auth
-
-                
-                <div class="col-lg-4">
-                    <ul class='list-group'>
-                        <li class='list-group-item'>
-                            <a href="{{route('CreatePost')}}">Create Post</a>
-                        </li>
-                        <li class='list-group-item'>
-                            <a href="{{route('indexPost')}}">Show Post</a>
-                        </li>
-
-                        <li class='list-group-item'>
-                            <a href="{{route('PostsTrashed')}}">Trashed Post</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="{{ route('register') }}">Create user</a>
-                        </li>
-
-
-                    </ul>
-                </div>
-                
-                @endauth
-
-                <div class="col-lg-12">
-                @yield('content')
-                </div>
-            </div>
-        </div>
+        @yield('adminlayout')
+        @yield('userlayout')
 
         
         
