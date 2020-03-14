@@ -12,20 +12,91 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div id="dismiss">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+    
+            <div class="sidebar-header">
+                <h3>Control  Sidebar</h3>
+            </div>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
+            <ul class="list-unstyled components">
+
+                <li>
+                    <a href="#catSubmenu" data-toggle="collapse" aria-expanded="false">Categories</a>
+                    <ul class="collapse list-unstyled" id="catSubmenu">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul>
+                    <a href="#postSubmenu" data-toggle="collapse" aria-expanded="false">Posts</a>
+                    <ul class="collapse list-unstyled" id="postSubmenu">
+                        <li>
+                            <a href="{{route('indexPost')}}">Show Posts</a>
+                        </li>
+                        <li>
+                            <a href="{{route('CreatePost')}}">Create Post</a>
+                        </li>
+                        <li>
+                            <a href="{{route('PostsTrashed')}}">Trashed posts</a>
+                        </li>
+                    </ul>
+                    <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false">Users</a>
+                    <ul class="collapse list-unstyled" id="userSubmenu">
+                        <li>
+                            <a href="#">test</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('register') }}">Create User</a>
+                        </li>
+                        <li>
+                            <a href="#">test</a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+
+        </nav>
+
+        <!-- END OF SIDE NAV BAR -->
+
+        <!-- Page Content  -->
+        
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    @auth
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span>Toggle Sidebar</span>
+                    </button>
+                    @endauth
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto"
+                     type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
 
                     </ul>
@@ -60,38 +131,13 @@
                             </li>
                         @endguest
                     </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
        
         <div class="container">
-            <div class="row">
-                @auth
-
-                
-                <div class="col-lg-4">
-                    <ul class='list-group'>
-                        <li class='list-group-item'>
-                            <a href="{{route('CreatePost')}}">Create Post</a>
-                        </li>
-                        <li class='list-group-item'>
-                            <a href="{{route('indexPost')}}">Show Post</a>
-                        </li>
-
-                        <li class='list-group-item'>
-                            <a href="{{route('PostsTrashed')}}">Trashed Post</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="{{ route('register') }}">Create user</a>
-                        </li>
-
-
-                    </ul>
-                </div>
-                
-                @endauth
-
-                <div class="col-lg-12">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 ">
                 @yield('content')
                 </div>
             </div>
@@ -100,9 +146,13 @@
         
         
     </div>
+    <div class="overlay"></div>
+    </div>
 
     <!-- Scripts -->
     <script src="{{asset('js/jquery-3.4.1.js')}}"></script>
     <script src="{{asset('js/bootstrap.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="{{asset('js/main.js')}}"></script>
 </body>
 </html>
