@@ -69,7 +69,55 @@
             </div>
         </nav>
 
-    @yield('content')
+
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-8">
+
+                @yield('content')
+            
+            </div>
+            <div class="col-4">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-header bg-light font-weight-bold">
+                        Categories
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item bg-light">Cras justo odio</li>
+                        <li class="list-group-item bg-light">Dapibus ac facilisis in</li>
+                        <li class="list-group-item bg-light">Vestibulum at eros</li>
+                    </ul>
+                </div>
+                <div class="card mt-3 bg-light">
+                    <div class="card-body ">
+                        <h5 class="card-title">About</h5>
+                        <p class="card-text">This is a simple CMS blog website that displays
+                        articles that belongs to various categories and fully managed from admin page</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+            <footer>
+                <hr>
+            <div class="row justify-content-center mt-3 pb-3">
+                <div>
+                    Copyright &copy; Website 2020
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </footer>
+    </div>
+    
     
 
 

@@ -19,15 +19,9 @@ class PostsController extends Controller
     
     public function index()
     {
-        return view('admin.posts.create');
-    }
-
-    public function all()
-    {
         $posts = Posts::all();
         return view('admin.posts.index')->with('posts',$posts);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +29,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -44,32 +38,26 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $post = new Posts();
-        //dd($request->img);
-
-
-        $img = $request->img;
-
-
+        $data = request()->validate([
+            'title'=>'required',
+            'body'=>'required',
+            'img'=>'required|image',
+            'author'=>'required',
+        ]);
+    
+        $img = $data['img'];
 
         $img_name = time().$img->getClientOriginalName();
 
-
-
         $img->move('uploads/posts',$img_name);
+        $data['img'] = '/uploads/posts/' . $img_name;
+        
 
-        //$post->img = 'dsadsa.png';
-        $post->title = $request->title;
-        $post->body = $request->body;
-        $post->author = $request->author;
+        Posts::create($data);
 
-        $post->img = 'uploads/posts/' . $img_name;
-
-        $post->save();
-
-        return redirect()->route('indexPost');
+        return redirect()->route('posts.index');
 
     }
 
@@ -79,9 +67,20 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+
+    public function show(\App\Posts $post)
     {
-        //
+        return view('main.show',[
+            'post' => $post,
+        ]);
+    }
+    
+    public function showall()
+    {
+        $posts = Posts::orderBy('created_at','DESC')->get();
+        return view('main.index',[
+            'posts' => $posts,
+        ]);
     }
 
     /**
@@ -90,6 +89,7 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function edit($id)
     {
         $post = Posts::findOrFail($id);
@@ -121,7 +121,7 @@ class PostsController extends Controller
 
         $post->save();
 
-        return redirect()->route('indexPost');
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -159,14 +159,6 @@ class PostsController extends Controller
     {
         $post = Posts::withTrashed()->where('id',$id)->restore();
 
-        return redirect()->route('indexPost');
-    }
-
-    // users
-
-    public function user()
-    {
-        $posts = Posts::all();
-        return view('main.posts')->with('posts',$posts);
+        return redirect()->route('posts.index');
     }
 }

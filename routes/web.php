@@ -11,24 +11,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('main.user');
-});
+
 
 Auth::routes();
 // admins
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home/post','PostsController@index')->name('CreatePost');
-Route::post('/home/post/insert','PostsController@store')->name('post_insert');
-Route::get('/home/index',"PostsController@all")->name('indexPost')->middleware('Admin');
-Route::get('/home/posts/edit/{id}',"PostsController@edit")->name('PostsEdit');
-Route::post('/home/posts/update/{id}',"PostsController@update")->name('Postsupdate');
-Route::get('/home/posts/trash/{id}',"PostsController@destroy")->name('PostsTrash');
-Route::get('/home/posts/trashed',"PostsController@trash")->name('PostsTrashed');
-Route::get('/home/posts/delete/{id}',"PostsController@kill")->name('PostsDelete');
-Route::get('/home/posts/restore/{id}',"PostsController@restore")->name('PostsRestore');
+Route::get('/admin', 'HomeController@index')->name('home');
 
-// users
+Route::get('/','PostsController@showall')->name('posts.showall');
+Route::get('/admin/posts','PostsController@index')->name('posts.index')->middleware('Admin');
+Route::get('/admin/posts/create',"PostsController@create")->name('posts.create');
+Route::post('/posts','PostsController@store')->name('posts.store');
+Route::get('/posts/{post}','PostsController@show')->name('posts.show');
 
-Route::get('/posts',"PostsController@user")->name('allPosts');
+//un edited yet
+Route::get('/admin/posts/edit/{id}',"PostsController@edit")->name('PostsEdit');
+Route::post('/admin/posts/update/{id}',"PostsController@update")->name('Postsupdate');
+Route::get('/admin/posts/trash/{id}',"PostsController@destroy")->name('PostsTrash');
+Route::get('/admin/posts/trashed',"PostsController@trash")->name('PostsTrashed');
+Route::get('/admin/posts/delete/{id}',"PostsController@kill")->name('PostsDelete');
+Route::get('/admin/posts/restore/{id}',"PostsController@restore")->name('PostsRestore');

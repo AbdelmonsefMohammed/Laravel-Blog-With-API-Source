@@ -49,10 +49,10 @@
                     <a href="#postSubmenu" data-toggle="collapse" aria-expanded="false">Posts</a>
                     <ul class="collapse list-unstyled" id="postSubmenu">
                         <li>
-                            <a href="{{route('indexPost')}}">Show Posts</a>
+                            <a href="{{route('posts.index')}}">Show Posts</a>
                         </li>
                         <li>
-                            <a href="{{route('CreatePost')}}">Create Post</a>
+                            <a href="{{route('posts.create')}}">Create Post</a>
                         </li>
                         <li>
                             <a href="{{route('PostsTrashed')}}">Trashed posts</a>
