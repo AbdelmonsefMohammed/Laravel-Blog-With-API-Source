@@ -35,6 +35,15 @@
                             <label for="">Author</label>
                             <input name='author' type="text" class="form-control" placeholder='Enter Author Name' required>
                         </div>
+                        
+                        <div class="form-group">
+                            <label for="company_id">Category</label>
+                            <select name="cat_id" id="company_id" class="form-control">
+                                @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
                         <input type="submit" class='btn btn-primary btn-block'>
 

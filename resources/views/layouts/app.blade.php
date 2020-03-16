@@ -49,13 +49,13 @@
                     <a href="#postSubmenu" data-toggle="collapse" aria-expanded="false">Posts</a>
                     <ul class="collapse list-unstyled" id="postSubmenu">
                         <li>
-                            <a href="{{route('posts.index')}}">Show Posts</a>
+                            <a href="{{route('posts.show')}}">Show Posts</a>
                         </li>
                         <li>
                             <a href="{{route('posts.create')}}">Create Post</a>
                         </li>
                         <li>
-                            <a href="{{route('PostsTrashed')}}">Trashed posts</a>
+                            <a href="{{route('posts.trashed')}}">Trashed posts</a>
                         </li>
                     </ul>
                     <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false">Users</a>
@@ -108,9 +108,9 @@
                         <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">Login</a>
                             </li>
-                                <!-- <li class="nav-item">
+                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">Register</a>
-                                </li> -->
+                                </li>
                         @else
                         <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

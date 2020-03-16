@@ -33,10 +33,11 @@ class RegisterController extends Controller
      * Create a new controller instance.
      *
      * @return void
+     * add this $this->middleware('auth');
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        
     }
 
     /**

@@ -19,19 +19,21 @@
                             <th scope="col">Title</th>
                             <th scope="col">Img</th>
                             <th scope="col">Author</th>
+                            <th scope="col">Category</th>
                             <th scope="col">Trash</th>
                             <th scope="col">Update</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($posts as $p)
+                        @foreach($posts as $post)
                             <tr>
-                                <th scope="row">{{$p->id}}</th>
-                                <td>{{$p->title}}</td>
-                                <td><img src="{{asset($p->img)}}" alt="this is image" width='50px'></td>
-                                <td>{{$p->author}}</td>
-                                <td><a href="{{route('PostsTrash',['id'=>$p->id])}}" class='btn btn-danger'>Trash</a></td>
-                                <td><a href="{{route('PostsEdit',['id'=>$p->id])}}" class='btn btn-primary'>Update</a></td>
+                                <th scope="row">{{$post->id}}</th>
+                                <td>{{$post->title}}</td>
+                                <td><img src="{{asset($post->img)}}" alt="this is image" width='50px'></td>
+                                <td>{{$post->author}}</td>
+                                <td>{{$post->categories->name}}</td>
+                                <td><a href="{{route('posts.trash',['id'=>$post->id])}}" class='btn btn-danger'>Trash</a></td>
+                                <td><a href="{{route('posts.edit',['id'=>$post->id])}}" class='btn btn-primary'>Update</a></td>
                             </tr>
                             @endforeach
                         </tbody>

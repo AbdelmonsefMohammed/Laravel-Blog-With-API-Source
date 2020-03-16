@@ -12,8 +12,12 @@
                     @endif
                     
                
-                    <form action="{{route('Postsupdate',['id'=>$post->id])}}" method='post' enctype="multipart/form-data">
+                    <form action="{{route('posts.update',['id'=>$post->id])}}" method='post' enctype="multipart/form-data">
+                        
                         {{csrf_field()}}
+
+                        {{ method_field('PATCH') }}
+                        
                         <div class="form-group">
                             <label for="">Title</label>
                             <input name='title' type="text" class="form-control" placeholder='Enter Post Title' value='{{$post->title}}' required>

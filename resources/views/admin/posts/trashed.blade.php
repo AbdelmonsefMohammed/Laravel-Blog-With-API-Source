@@ -30,8 +30,8 @@
                                 <td>{{$p->title}}</td>
                                 <td><img src="{{asset($p->img)}}" alt="this is image" width='50px'></td>
                                 <td>{{$p->author}}</td>
-                                <td><a href="{{route('PostsDelete',['id'=>$p->id])}}" class='btn btn-danger'>Delete</a></td>
-                                <td><a href="{{route('PostsRestore',['id'=>$p->id])}}" class='btn btn-primary'>Restore</a></td>
+                                <td><a href="{{route('posts.delete',['id'=>$p->id])}}" class='btn btn-danger'>Delete</a></td>
+                                <td><a href="{{route('posts.restore',['id'=>$p->id])}}" class='btn btn-primary'>Restore</a></td>
                             </tr>
                             @endforeach
                         </tbody>

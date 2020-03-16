@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Posts;
+use App\Categories;
 class PostsController extends Controller
 {
     /**
@@ -11,7 +12,7 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -19,8 +20,7 @@ class PostsController extends Controller
     
     public function index()
     {
-        $posts = Posts::all();
-        return view('admin.posts.index')->with('posts',$posts);
+        return view('home');
     }
     /**
      * Show the form for creating a new resource.
@@ -29,7 +29,10 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $categories = Categories::all();
+        return view('admin.posts.create',[
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -45,6 +48,7 @@ class PostsController extends Controller
             'body'=>'required',
             'img'=>'required|image',
             'author'=>'required',
+            'cat_id'=>'required',
         ]);
     
         $img = $data['img'];
@@ -57,7 +61,7 @@ class PostsController extends Controller
 
         Posts::create($data);
 
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.show');
 
     }
 
@@ -68,20 +72,17 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function show(\App\Posts $post)
+    public function show()
     {
-        return view('main.show',[
-            'post' => $post,
-        ]);
-    }
-    
-    public function showall()
-    {
-        $posts = Posts::orderBy('created_at','DESC')->get();
-        return view('main.index',[
+        $posts = Posts::all();
+        $categories = Categories::all();
+        return view('admin.posts.index',[
             'posts' => $posts,
+            'categories' => $categories,
         ]);
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -93,7 +94,7 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Posts::findOrFail($id);
-        return view('admin.posts.update')->with('post',$post);
+        return view('admin.posts.edit')->with('post',$post);
     }
 
     /**
@@ -110,18 +111,19 @@ class PostsController extends Controller
         $post->body = $request->body;
         $post->author = $request->author;
 
-        $img = $request->img;
+        if(($request->img))
+        {   
+            $img = $request->img;
 
-        $img_name = time().$img->getClientOriginalName();
-
-        $img->move('uploads/posts',$img_name);
-
-        $post->img = 'uploads/posts/' . $img_name;
-
-
+            $img_name = time().$img->getClientOriginalName();
+    
+            $img->move('uploads/posts',$img_name);
+    
+            $post->img = '/uploads/posts/' . $img_name;
+        }
         $post->save();
 
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.show');
     }
 
     /**

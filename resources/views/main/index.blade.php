@@ -13,7 +13,7 @@
     <img src="{{$post->img}}" class="card-img-top" alt="...">
     <div class="card-body">
       <p class="card-text">{{$post->body}}</p>
-      <a href="{{route('posts.show',['post'=>$post->id])}}" class="btn btn-primary">Read more</a>
+      <a href="{{route('post.show',['post'=>$post->id])}}" class="btn btn-primary">Read more</a>
     </div>
   </div>
 </div>
