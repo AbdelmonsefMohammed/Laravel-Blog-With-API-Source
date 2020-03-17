@@ -37,13 +37,13 @@
                     <a href="#catSubmenu" data-toggle="collapse" aria-expanded="false">Categories</a>
                     <ul class="collapse list-unstyled" id="catSubmenu">
                         <li>
-                            <a href="#">Home 1</a>
+                            <a href="{{route('categories.index')}}">Show Categories</a>
                         </li>
                         <li>
-                            <a href="#">Home 2</a>
+                            <a href="{{route('categories.create')}}">Create Category</a>
                         </li>
                         <li>
-                            <a href="#">Home 3</a>
+                            <a href="{{route('categories.trashed')}}">Trashed Categories</a>
                         </li>
                     </ul>
                     <a href="#postSubmenu" data-toggle="collapse" aria-expanded="false">Posts</a>

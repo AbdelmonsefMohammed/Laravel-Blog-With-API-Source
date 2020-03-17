@@ -7,6 +7,11 @@ use App\Categories;
 
 class CategoriesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,10 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Categories::all();
+        return view('admin.categories.index',[
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -24,7 +32,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -35,7 +43,11 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data=request()->validate([
+            'name' => 'required|min:6|max:64',
+        ]);
+        Categories::create($data);
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -44,9 +56,12 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(\App\Categories $category)
     {
-        //
+
+        return view('admin.categories.show',[
+            'category' => $category,          
+        ]);
     }
 
     /**
@@ -78,8 +93,34 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
-        //
+        $category = Categories::findorfail($id);
+        $category->delete();
+        return redirect()->back();
+    }
+
+    public function trashed()
+    {
+        $category = Categories::onlyTrashed()->get();
+
+        return view('admin.categories.trashed')->with('trash',$category);
+    }
+
+    public function kill($id)
+    {
+        $category = Categories::withTrashed()->where('id',$id);
+
+        $category->forceDelete();
+
+        return redirect()->back();
+    }
+
+    public function restore($id)
+    {
+        $category = Categories::withTrashed()->where('id',$id)->restore();
+
+        return redirect()->route('categories.index');
     }
 }
