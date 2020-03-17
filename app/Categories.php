@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Categories extends Model
 {
-
+    use SoftDeletes;
     protected $fillable = [
         'name',
     ];
-    use SoftDeletes;
+
+    
     protected $dates = ['deleted_at'];
+
     public function posts()
     {
         return $this->hasMany(Posts::class,'cat_id');
