@@ -17,6 +17,6 @@ class Categories extends Model
 
     public function posts()
     {
-        return $this->hasMany(Posts::class,'cat_id');
+        return $this->hasMany(Posts::class,'cat_id')->orderBy('created_at','DESC');
     }
 }

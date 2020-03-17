@@ -1,10 +1,12 @@
 @extends('layouts.main')
 
 @section('content')
-@foreach($posts as $post)
+<h1>{{$category->name}}</h1>
+<hr>
+@foreach($category->posts as $post)
 <div>
   <div class="border-bottom mb-3">
-    <h2>{{$post->title}}<small class="text-muted pl-2">{{$post->categories->name}}</small></h2>
+    <h2>{{$post->title}}</h2>
     <p class="lead">by <a href="#">{{$post->author}}</a></p>
     <p> <span>Posted on</span>  {{$post->created_at}}</p>
   </div>
@@ -18,10 +20,5 @@
   </div>
 </div>
 @endforeach
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center">
-            {{ $posts->links() }}
-        </div>
-    </div>
 
 @endsection

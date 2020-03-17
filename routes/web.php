@@ -18,8 +18,12 @@ Auth::routes();
 //user
 Route::get('/','HomeController@index')->name('posts.showall');
 Route::get('/posts/{post}','HomeController@show')->name('post.show');
+Route::get('/category/{category}','HomeController@catshow')->name('category.show');
 
-
+View::composer('layouts.main', function ($view) {
+    $categories = \App\Categories::all();
+    $view->with('categories', $categories);
+});
 
 // admins
 

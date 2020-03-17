@@ -21,7 +21,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Posts::orderBy('created_at','DESC')->get();
+        $posts = Posts::orderBy('created_at','DESC')->Paginate(5);
         return view('main.index',[
             'posts' => $posts,
         ]);
@@ -30,6 +30,12 @@ class HomeController extends Controller
     {
         return view('main.show',[
             'post' => $post,
+        ]);
+    }
+    public function catshow(\App\Categories $category)
+    {
+        return view('main.categoryshow',[
+            'category' => $category,
         ]);
     }
 }

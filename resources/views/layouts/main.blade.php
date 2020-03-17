@@ -91,9 +91,9 @@
                         Categories
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item bg-light">Cras justo odio</li>
-                        <li class="list-group-item bg-light">Dapibus ac facilisis in</li>
-                        <li class="list-group-item bg-light">Vestibulum at eros</li>
+                        @foreach($categories as $category)
+                    <a href="{{route('category.show',['category'=>$category->id])}}"><li class="list-group-item bg-light">{{$category->name}}</li></a>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="card mt-3 bg-light">
