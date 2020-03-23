@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Posts;  
 class PostsApiController extends Controller
 {
     /**
@@ -13,7 +13,8 @@ class PostsApiController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Posts::all();
+        return json_encode($posts);
     }
 
     /**
@@ -32,9 +33,28 @@ class PostsApiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $data = request()->validate([
+            'title'=>'required',
+            'body'=>'required',
+            'img'=>'required|image',
+            'author'=>'required',
+            'cat_id'=>'required',
+        ]);
+    
+        $img = $data['img'];
+
+        $img_name = time().$img->getClientOriginalName();
+
+        $img->move('uploads/posts',$img_name);
+        $data['img'] = '/uploads/posts/' . $img_name;
+        
+
+        Posts::create($data);
+        $done = ['insertion => Success'];
+        return json_encode($done);
+
     }
 
     /**
@@ -43,9 +63,10 @@ class PostsApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($post)
     {
-        //
+        $result = Posts::findOrFail($post);
+        return json_encode($result);
     }
 
     /**
@@ -56,7 +77,7 @@ class PostsApiController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -68,7 +89,24 @@ class PostsApiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Posts::findOrFail($id);
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->author = $request->author;
+
+        if(($request->img))
+        {   
+            $img = $request->img;
+
+            $img_name = time().$img->getClientOriginalName();
+    
+            $img->move('uploads/posts',$img_name);
+    
+            $post->img = '/uploads/posts/' . $img_name;
+        }
+        $post->save();
+        $done = ['update => Success'];
+        return json_encode($done);
     }
 
     /**
@@ -79,6 +117,10 @@ class PostsApiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //Not Working
+        $post = Posts::firdOrFail($id);
+        $post->delete();
+        $done = ['Deletion => Success'];
+        return json_encode($done);
     }
 }

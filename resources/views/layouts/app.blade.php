@@ -61,13 +61,13 @@
                     <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false">Users</a>
                     <ul class="collapse list-unstyled" id="userSubmenu">
                         <li>
-                            <a href="#">test</a>
+                            <a href="#">Manage</a>
                         </li>
                         <li>
                             <a href="{{ route('register') }}">Create User</a>
                         </li>
                         <li>
-                            <a href="#">test</a>
+                            <a href="#">Trashed</a>
                         </li>
                     </ul>
                 </li>
@@ -108,9 +108,9 @@
                         <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">Login</a>
                             </li>
-                                 <li class="nav-item">
+                                 {{-- <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">Register</a>
-                                </li>
+                                </li> --}}
                         @else
                         <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
